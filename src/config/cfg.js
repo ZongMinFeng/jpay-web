@@ -7,6 +7,24 @@ module.exports = {
     //uploadUrl:'http://139.196.162.158:10080/efile',
     uploadUrl:'http://221.226.96.94:16018/images',//生产
 
+    instPreservation: {
+      url: baseUrlSystem,
+      action: 'instPreservation',
+      txnId: 'instPreservation'
+    },
+
+    instDelete: {
+      url: baseUrlSystem,
+      action: 'instDelete',
+      txnId: 'instDelete'
+    },
+
+    instModification: {
+      url: baseUrlSystem,
+      action: 'instModification',
+      txnId: 'instModification'
+    },
+
     instTreeGetByCons: {
       url: baseUrlSystem,
       action: 'instTreeGetByCons',
