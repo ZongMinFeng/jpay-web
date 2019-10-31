@@ -24,7 +24,7 @@ const sendServer = (urlParams, me, Toast, flag) => {
     header.reqTime = ssDate
 
 
-    if (urlParams.txnId === cfg.service.login.txnId) {
+    if (urlParams.txnId === cfg.service.loginCheck.txnId) {
       sha256Key = '8AAE67FA6B5B1BBCF14BC7CA425A0116'
     } else {
       sha256Key = macKey

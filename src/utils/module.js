@@ -1,6 +1,33 @@
 const common = require('./common.js');
 const cfg = require("../config/cfg.js");
 
+const loginCheck = (me, params, Toast) => {
+  return new Promise((resolve, reject) => {
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    let header={};
+    urlParams.url = cfg.service.loginCheck.url + '/' + cfg.service.loginCheck.action;
+    urlParams.txnId = cfg.service.loginCheck.txnId;
+
+    if(params.userInfo!=null){
+      header.userInfo=params.userInfo;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+    urlParams.header=header;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
 /**
  * 2.1.1	新增机构
  * @param me
@@ -139,9 +166,8 @@ const instTreeGetByCons = (me, params, Toast) => {
   })
 };
 
-
-
 export {
+  loginCheck,
   instPreservation,
   instDelete,
   instModification,

@@ -31,10 +31,10 @@ module.exports = {
       txnId: 'instTreeGetByCons'
     },
 
-    login: {
+    loginCheck: {
       url: baseUrlSystem,
-      action: 'login',
-      txnId: 'login'
+      action: 'loginCheck',
+      txnId: 'loginCheck'
     },
 
   },
