@@ -139,7 +139,7 @@
             localStorage.setItem("username", this.loginForm.username);
             localStorage.setItem("loginId", res.loginId);
             localStorage.setItem("instId", res.uinst.instId);
-            localStorage.setItem('uinst', JSON.stringify(res.uinst));
+            localStorage.setItem('instInfo', JSON.stringify(res.uinst));
             this.$router.push('/dashboard');
             this.loading = false;
           },

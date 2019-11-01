@@ -192,6 +192,7 @@
           {id:0, name:'不收单'},
           {id:1, name:'收单'}
         ],
+        instInfo:{},
       }
     },
 
@@ -206,6 +207,8 @@
     },
 
     created() {
+      this.instInfo=JSON.parse(localStorage.getItem("instInfo"));
+      console.log("instInfo", this.instInfo);//debug
       this.initData();
     },
 
@@ -213,7 +216,7 @@
       initData() {
         this.data=[];
         let params = {};
-        params.instId = '119279746067599360';//debug
+        params.instId = this.instInfo.instId;
         instTreeGetByCons(this, params, Toast).then(
           (res) => {
             this.data.push(res);
