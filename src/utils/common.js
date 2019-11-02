@@ -94,7 +94,6 @@ const sendServer = (urlParams, me, Toast, flag) => {
         }
       },
       (res) => {
-        console.log('res:', res);
         loading.close();
         if (res.message.includes('timeout')) {
           me.$message.error('网络异常，结果未知，请稍后再试!');

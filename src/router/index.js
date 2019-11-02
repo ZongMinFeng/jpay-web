@@ -85,12 +85,22 @@ export const constantRoutes = [
         component: () => import('@/views/inst/InstAction'),
         meta: { title: '机构列表', icon: 'eye' }
       }
-      // {
-      //   path: 'tree',
-      //   name: 'Tree',
-      //   component: () => import('@/views/tree/index'),
-      //   meta: { title: 'Tree', icon: 'tree' }
-      // }
+    ]
+  },
+
+  {
+    path: '/authUser',
+    component: Layout,
+    redirect: '/inst/authUserListAction',
+    name: 'authUser',
+    meta: { title: '操作员管理', icon: 'eye' },
+    children: [
+      {
+        path: 'authUserListAction',
+        name: 'authUserListAction',
+        component: () => import('@/views/authUser/AuthUserListAction'),
+        meta: { title: '操作员列表', icon: 'example' }
+      }
     ]
   },
 
