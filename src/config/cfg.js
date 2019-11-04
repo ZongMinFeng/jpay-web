@@ -37,6 +37,23 @@ module.exports = {
       txnId: 'loginCheck'
     },
 
+    authUserGetByCon: {
+      url: baseUrlSystem,
+      action: 'authUserGetByCon',
+      txnId: 'authUserGetByCon'
+    },
+
+    authUserDelete: {
+      url: baseUrlSystem,
+      action: 'authUserDelete',
+      txnId: 'authUserDelete'
+    },
+
+    authUserPreservation: {
+      url: baseUrlSystem,
+      action: 'authUserPreservation',
+      txnId: 'authUserPreservation'
+    },
   },
 
   resp: {

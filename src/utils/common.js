@@ -76,7 +76,6 @@ const sendServer = (urlParams, me, Toast, flag) => {
 
     axios.post(urlParams.url, send, {headers: header}).then(
       (res) => {
-        console.log('res:', res);
         loading.close();
         if (res.status === 200) {
           const data = res.data;

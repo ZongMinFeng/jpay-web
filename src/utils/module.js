@@ -166,10 +166,130 @@ const instTreeGetByCons = (me, params, Toast) => {
   })
 };
 
+/**
+ *2.1.10	根据条件查询操作员（分页查询）
+ * @param me
+ * @param params
+ * @param Toast
+ * @returns {Promise<any>}
+ */
+const authUserGetByCon = (me, params, Toast) => {
+  return new Promise((resolve, reject) => {
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    urlParams.url = cfg.service.authUserGetByCon.url + '/' + cfg.service.authUserGetByCon.action;
+    urlParams.txnId = cfg.service.authUserGetByCon.txnId;
+
+    if(params.page!=null){
+      send.page=params.page;
+    }
+
+    if(params.pageSize!=null){
+      send.pageSize=params.pageSize;
+    }
+
+    if(params.instId!=null){
+      send.instId=params.instId;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
+/**
+ * 2.1.8	删除操作员
+ * @param me
+ * @param params
+ * @param Toast
+ * @returns {Promise<any>}
+ */
+const authUserDelete = (me, params, Toast) => {
+  console.log("authUserDelete", params);//debug
+  return new Promise((resolve, reject) => {
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    urlParams.url = cfg.service.authUserDelete.url + '/' + cfg.service.authUserDelete.action;
+    urlParams.txnId = cfg.service.authUserDelete.txnId;
+
+    if(params.id!=null){
+      send.id=params.id;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
+/**
+ * 2.1.7	新增操作员
+ * @param me
+ * @param params
+ * @param Toast
+ * @returns {Promise<any>}
+ */
+const authUserPreservation = (me, params, Toast) => {
+  return new Promise((resolve, reject) => {
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    urlParams.url = cfg.service.authUserPreservation.url + '/' + cfg.service.authUserPreservation.action;
+    urlParams.txnId = cfg.service.authUserPreservation.txnId;
+
+    if(params.code!=null){
+      send.code=params.code;
+    }
+    if(params.name !=null){
+      send.name =params.name ;
+    }
+    if(params.instId!=null){
+      send.instId=params.instId;
+    }
+    if(params.description!=null){
+      send.description=params.description;
+    }
+    if(params.createTellerId!=null){
+      send.createTellerId=params.createTellerId;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
 export {
   loginCheck,
   instPreservation,
   instDelete,
   instModification,
   instTreeGetByCons,
+  authUserGetByCon,
+  authUserDelete,
+  authUserPreservation,
 };
