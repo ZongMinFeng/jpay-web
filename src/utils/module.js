@@ -167,46 +167,6 @@ const instTreeGetByCons = (me, params, Toast) => {
 };
 
 /**
- *2.1.10	根据条件查询操作员（分页查询）
- * @param me
- * @param params
- * @param Toast
- * @returns {Promise<any>}
- */
-const authUserGetByCon = (me, params, Toast) => {
-  return new Promise((resolve, reject) => {
-    let urlParams = {};
-    let send = {};
-    let singArray = {};
-    urlParams.url = cfg.service.authUserGetByCon.url + '/' + cfg.service.authUserGetByCon.action;
-    urlParams.txnId = cfg.service.authUserGetByCon.txnId;
-
-    if(params.page!=null){
-      send.page=params.page;
-    }
-
-    if(params.pageSize!=null){
-      send.pageSize=params.pageSize;
-    }
-
-    if(params.instId!=null){
-      send.instId=params.instId;
-    }
-
-    urlParams.send = send;
-    urlParams.noSing = true;
-    urlParams.singArray = singArray;
-
-    common.sendServer(urlParams,me,Toast).then((res) => {
-        resolve(res)
-      }, (res) => {
-        reject(res)
-      }
-    );
-  })
-};
-
-/**
  * 2.1.8	删除操作员
  * @param me
  * @param params
@@ -283,6 +243,161 @@ const authUserPreservation = (me, params, Toast) => {
   })
 };
 
+/**
+ *2.1.10	根据条件查询操作员（分页查询）
+ * @param me
+ * @param params
+ * @param Toast
+ * @returns {Promise<any>}
+ */
+const authUserGetByCon = (me, params, Toast) => {
+  return new Promise((resolve, reject) => {
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    urlParams.url = cfg.service.authUserGetByCon.url + '/' + cfg.service.authUserGetByCon.action;
+    urlParams.txnId = cfg.service.authUserGetByCon.txnId;
+
+    if(params.page!=null){
+      send.page=params.page;
+    }
+
+    if(params.pageSize!=null){
+      send.pageSize=params.pageSize;
+    }
+
+    if(params.instId!=null){
+      send.instId=params.instId;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
+/**
+ * 2.1.11	新增卡类型
+ * @param me
+ * @param params
+ * @param Toast
+ * @returns {Promise<any>}
+ */
+const cardTypePreservation = (me, params, Toast) => {
+  console.log("cardTypePreservation", params);//debug
+  return new Promise((resolve, reject) => {
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    urlParams.url = cfg.service.cardTypePreservation.url + '/' + cfg.service.cardTypePreservation.action;
+    urlParams.txnId = cfg.service.cardTypePreservation.txnId;
+
+    if(params.name!=null){
+      send.name=params.name;
+    }
+    if(params.issuId !=null){
+      send.issuId =params.issuId ;
+    }
+    if(params.faceAmt!=null){
+      send.faceAmt=params.faceAmt;
+    }
+    if(params.createTellerId!=null){
+      send.createTellerId=params.createTellerId;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
+/**
+ * 2.1.12	删除卡类型
+ * @param me
+ * @param params
+ * @param Toast
+ * @returns {Promise<any>}
+ */
+const cardTypeDelete = (me, params, Toast) => {
+  console.log("cardTypeDelete", params);//debug
+  return new Promise((resolve, reject) => {
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    urlParams.url = cfg.service.cardTypeDelete.url + '/' + cfg.service.cardTypeDelete.action;
+    urlParams.txnId = cfg.service.cardTypeDelete.txnId;
+
+    if(params.id!=null){
+      send.id=params.id;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
+/**
+ * 2.1.14	查询卡类型（分页查询）
+ * @param me
+ * @param params
+ * @param Toast
+ * @returns {Promise<any>}
+ */
+const cardTypeGetByCon = (me, params, Toast) => {
+  return new Promise((resolve, reject) => {
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    urlParams.url = cfg.service.cardTypeGetByCon.url + '/' + cfg.service.cardTypeGetByCon.action;
+    urlParams.txnId = cfg.service.cardTypeGetByCon.txnId;
+
+    if(params.page!=null){
+      send.page=params.page;
+    }
+
+    if(params.pageSize!=null){
+      send.pageSize=params.pageSize;
+    }
+
+    if(params.issuId!=null){
+      send.issuId=params.issuId;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
 export {
   loginCheck,
   instPreservation,
@@ -292,4 +407,7 @@ export {
   authUserGetByCon,
   authUserDelete,
   authUserPreservation,
+  cardTypePreservation,
+  cardTypeGetByCon,
+  cardTypeDelete,
 };

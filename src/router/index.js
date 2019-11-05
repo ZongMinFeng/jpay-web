@@ -104,6 +104,22 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/cardType',
+    component: Layout,
+    redirect: '/cardType/cardTypeListAction',
+    name: 'authUser',
+    meta: { title: '卡类设置', icon: 'link' },
+    children: [
+      {
+        path: 'cardTypeListAction',
+        name: 'cardTypeListAction',
+        component: () => import('@/views/cardType/CardTypeListAction'),
+        meta: { title: '卡类列表', icon: 'link' }
+      }
+    ]
+  },
+
   // {
   //   path: '/example',
   //   component: Layout,

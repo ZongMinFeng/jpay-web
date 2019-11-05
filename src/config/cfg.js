@@ -54,6 +54,24 @@ module.exports = {
       action: 'authUserPreservation',
       txnId: 'authUserPreservation'
     },
+
+    cardTypePreservation: {
+      url: baseUrlSystem,
+      action: 'cardTypePreservation',
+      txnId: 'cardTypePreservation'
+    },
+
+    cardTypeGetByCon: {
+      url: baseUrlSystem,
+      action: 'cardTypeGetByCon',
+      txnId: 'cardTypeGetByCon'
+    },
+
+    cardTypeDelete: {
+      url: baseUrlSystem,
+      action: 'cardTypeDelete',
+      txnId: 'cardTypeDelete'
+    },
   },
 
   resp: {

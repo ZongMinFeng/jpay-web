@@ -125,6 +125,11 @@
 
       login(){
         localStorage.removeItem("randKey");
+        localStorage.removeItem("username");
+        localStorage.removeItem("loginId");
+        localStorage.removeItem("instId");
+        localStorage.removeItem("instInfo");
+        localStorage.removeItem("issuInstInfo");
         let params={};
         let randKey=get32randString();
         console.log("randKey", randKey);//debug
@@ -138,8 +143,11 @@
             localStorage.setItem("randKey", randKey);
             localStorage.setItem("username", this.loginForm.username);
             localStorage.setItem("loginId", res.loginId);
-            localStorage.setItem("instId", res.uinst.instId);
-            localStorage.setItem('instInfo', JSON.stringify(res.uinst));
+            localStorage.setItem("instId", res.instInfo.instId);
+            localStorage.setItem('instInfo', JSON.stringify(res.instInfo));
+            if (res.issuInstInfo!==null){
+              localStorage.setItem("issuInstInfo", JSON.stringify(res.issuInstInfo));
+            }
             this.$router.push('/dashboard');
             this.loading = false;
           },
