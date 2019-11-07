@@ -193,6 +193,7 @@
           {id:1, name:'收单'}
         ],
         instInfo:{},
+        username:null,
       }
     },
 
@@ -209,6 +210,7 @@
     created() {
       this.instInfo=JSON.parse(localStorage.getItem("instInfo"));
       console.log("instInfo", this.instInfo);//debug
+      this.username=localStorage.getItem("username");
       this.initData();
     },
 
@@ -265,6 +267,7 @@
           params.parentInstId=this.dialogForm.parentInstId;
           params.issuTag=this.dialogForm.issuTag;
           params.acqTag=this.dialogForm.acqTag;
+          params.createTellerId=this.username;
           instPreservation(this, params, Toast).then(
             (res)=>{
               this.$message.success('新增成功！');
@@ -281,6 +284,7 @@
           params.instName=this.dialogForm.instName;
           params.issuTag=this.dialogForm.issuTag;
           params.acqTag=this.dialogForm.acqTag;
+          params.createTellerId=this.username;
           instModification(this, params, Toast).then(
             (res)=>{
               this.$message.success('修改成功！');

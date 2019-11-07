@@ -120,6 +120,22 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/memUser',
+    component: Layout,
+    redirect: '/memUser/memUserListAction',
+    name: 'memUser',
+    meta: { title: '会员管理', icon: 'eye' },
+    children: [
+      {
+        path: 'memUserListAction',
+        name: 'memUserListAction',
+        component: () => import('@/views/memUser/MemUserListAction'),
+        meta: { title: '会员列表', icon: 'nested' }
+      }
+    ]
+  },
+
   // {
   //   path: '/example',
   //   component: Layout,

@@ -21,7 +21,7 @@
           <el-table-column label="用户名" prop="name"></el-table-column>
           <el-table-column label="过期日期" prop="expDate" width="250"></el-table-column>
           <el-table-column label="描述" prop="description"></el-table-column>
-          <el-table-column>
+          <el-table-column label="操作">
             <template slot-scope="props">
               <el-button type="danger" size="small" @click="itemDelete(props.row.id)">删除</el-button>
             </template>

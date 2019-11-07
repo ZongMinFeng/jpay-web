@@ -72,6 +72,12 @@ module.exports = {
       action: 'cardTypeDelete',
       txnId: 'cardTypeDelete'
     },
+
+    memberQueryByCon: {
+      url: baseUrlSystem,
+      action: 'memberQueryByCon',
+      txnId: 'memberQueryByCon'
+    },
   },
 
   resp: {

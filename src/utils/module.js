@@ -55,6 +55,9 @@ const instPreservation = (me, params, Toast) => {
     if(params.acqTag!=null){
       send.acqTag=params.acqTag;
     }
+    if(params.createTellerId!=null){
+      send.createTellerId=params.createTellerId;
+    }
 
     urlParams.send = send;
     urlParams.noSing = true;
@@ -398,6 +401,46 @@ const cardTypeGetByCon = (me, params, Toast) => {
   })
 };
 
+/**
+ * 2.1.18	查询会员（分页查询）
+ * @param me
+ * @param params
+ * @param Toast
+ * @returns {Promise<any>}
+ */
+const memberQueryByCon = (me, params, Toast) => {
+  return new Promise((resolve, reject) => {
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    urlParams.url = cfg.service.memberQueryByCon.url + '/' + cfg.service.memberQueryByCon.action;
+    urlParams.txnId = cfg.service.memberQueryByCon.txnId;
+
+    if(params.page!=null){
+      send.page=params.page;
+    }
+
+    if(params.pageSize!=null){
+      send.pageSize=params.pageSize;
+    }
+
+    if(params.issuId!=null){
+      send.issuId=params.issuId;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
 export {
   loginCheck,
   instPreservation,
@@ -410,4 +453,5 @@ export {
   cardTypePreservation,
   cardTypeGetByCon,
   cardTypeDelete,
+  memberQueryByCon,
 };
