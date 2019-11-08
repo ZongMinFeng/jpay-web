@@ -402,6 +402,84 @@ const cardTypeGetByCon = (me, params, Toast) => {
 };
 
 /**
+ * 2.1.15	新增会员
+ * @param me
+ * @param params
+ * @param Toast
+ * @returns {Promise<any>}
+ */
+const memberSave = (me, params, Toast) => {
+  console.log("memberSave", params);//debug
+  return new Promise((resolve, reject) => {
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    urlParams.url = cfg.service.memberSave.url + '/' + cfg.service.memberSave.action;
+    urlParams.txnId = cfg.service.memberSave.txnId;
+
+    if(params.issuId!=null){
+      send.issuId=params.issuId;
+    }
+    if(params.name !=null){
+      send.name =params.name ;
+    }
+    if(params.phone!=null){
+      send.phone=params.phone;
+    }
+    if(params.createTellerId!=null){
+      send.createTellerId=params.createTellerId;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
+/**
+ * 1.1.1	删除会员
+ * @param me
+ * @param params
+ * @param Toast
+ * @returns {Promise<any>}
+ */
+const memberDelete = (me, params, Toast) => {
+  console.log("memberSave", params);//debug
+  return new Promise((resolve, reject) => {
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    urlParams.url = cfg.service.memberDelete.url + '/' + cfg.service.memberDelete.action;
+    urlParams.txnId = cfg.service.memberDelete.txnId;
+
+    if(params.memId!=null){
+      send.memId=params.memId;
+    }
+    if(params.issuId !=null){
+      send.issuId =params.issuId ;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
+/**
  * 2.1.18	查询会员（分页查询）
  * @param me
  * @param params
@@ -454,4 +532,6 @@ export {
   cardTypeGetByCon,
   cardTypeDelete,
   memberQueryByCon,
+  memberSave,
+  memberDelete,
 };

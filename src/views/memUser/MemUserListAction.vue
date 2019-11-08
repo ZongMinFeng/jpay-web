@@ -55,7 +55,7 @@
 </template>
 
 <script>
-  import {memberQueryByCon} from "@/utils/module.js";
+  import {memberQueryByCon, memberSave, memberDelete} from "@/utils/module.js";
   import {Toast} from 'mint-ui';
   export default {
     name: "MemUserListAction",
@@ -75,6 +75,7 @@
           issuId:null,
           name:null,
           phone:null,
+          createTellerId:null,
         },
         dialogConfirmDisabled:false,
       }
@@ -92,6 +93,7 @@
 
     created(){
       this.issuInstInfo = JSON.parse(localStorage.getItem("issuInstInfo"));
+
       this.initData();
     },
 
@@ -117,6 +119,9 @@
       },
 
       onAddNewTap() {
+        this.flag=1;
+        this.dialogForm.createTellerId=localStorage.getItem("username");
+        this.dialogForm.instId=this.issuInstInfo.instId;
         this.dialogVisible=true;
       },
 
@@ -131,11 +136,49 @@
       },
 
       itemDelete(id){
-
+        this.$confirm('此操作将删除会员，是否确认？', '删除会员', {
+          confirmButtonText:'确定',
+          cancelButtonText:'取消',
+          type:'warning'
+        }).then(
+          ()=>{
+            let params={};
+            params.memId=id;
+            params.issuId=this.issuInstInfo.instId;
+            memberDelete(this, params, Toast).then(
+              (res)=>{
+                this.page=1;
+                this.$message.success('删除会员成功！');
+                this.initData();
+              }
+            ).catch();
+          }
+        ).catch();
       },
 
       dialogFormConfirm(){
+        this.$refs['dialogForm'].validate((valid)=>{
+          if (valid) {
+            this.dialogFormCommit();
+          }else{
+            return false;
+          }
+        });
+      },
 
+      dialogFormCommit(){
+        let params={};
+        params.issuId=this.dialogForm.instId;
+        params.name=this.dialogForm.name;
+        params.phone=this.dialogForm.phone;
+        params.createTellerId=this.dialogForm.createTellerId;
+        memberSave(this, params, Toast).then(
+          (res)=>{
+            this.$message.success('新增会员成功！');
+            this.initData();
+            this.dialogVisible=false;
+          }
+        ).catch();
       },
     }
   }

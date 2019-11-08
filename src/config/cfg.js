@@ -78,6 +78,18 @@ module.exports = {
       action: 'memberQueryByCon',
       txnId: 'memberQueryByCon'
     },
+
+    memberSave: {
+      url: baseUrlSystem,
+      action: 'memberSave',
+      txnId: 'memberSave'
+    },
+
+    memberDelete: {
+      url: baseUrlSystem,
+      action: 'memberDelete',
+      txnId: 'memberDelete'
+    },
   },
 
   resp: {
