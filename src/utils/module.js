@@ -519,6 +519,48 @@ const memberQueryByCon = (me, params, Toast) => {
   })
 };
 
+/**
+ * 2.1.19	查询会员详细信息
+ * @param me
+ * @param params
+ * @param Toast
+ * @returns {Promise<any>}
+ */
+const memberDetailsQueryByCon = (me, params, Toast) => {
+  return new Promise((resolve, reject) => {
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    urlParams.url = cfg.service.memberDetailsQueryByCon.url + '/' + cfg.service.memberDetailsQueryByCon.action;
+    urlParams.txnId = cfg.service.memberDetailsQueryByCon.txnId;
+
+    if(params.issuId!=null){
+      send.issuId=params.issuId;
+    }
+
+    if(params.memId!=null){
+      send.memId=params.memId;
+    }else{
+      send.phone=params.phone;
+    }
+
+    if(params.flag!=null){
+      send.flag=params.flag;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
 export {
   loginCheck,
   instPreservation,
@@ -534,4 +576,5 @@ export {
   memberQueryByCon,
   memberSave,
   memberDelete,
+  memberDetailsQueryByCon,
 };

@@ -90,6 +90,12 @@ module.exports = {
       action: 'memberDelete',
       txnId: 'memberDelete'
     },
+
+    memberDetailsQueryByCon: {
+      url: baseUrlSystem,
+      action: 'memberDetailsQueryByCon',
+      txnId: 'memberDetailsQueryByCon'
+    },
   },
 
   resp: {

@@ -93,7 +93,6 @@
 
     created(){
       this.issuInstInfo = JSON.parse(localStorage.getItem("issuInstInfo"));
-
       this.initData();
     },
 
