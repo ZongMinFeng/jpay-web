@@ -36,18 +36,18 @@
               会员名: {{memberInfo.name}}
             </el-col>
             <el-col :span="12">
-              余额: {{memberInfo.bal}}
+              余额: {{memberInfo.bal}} 元
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8" style="text-align: center;">
-              <el-button type="success">充值</el-button>
+              <el-button type="success" :disabled="chargeDisabled">充值</el-button>
             </el-col>
             <el-col :span="8" style="text-align: center;">
-              <el-button type="primary">消费</el-button>
+              <el-button type="primary" :disabled="saleDisabled">消费</el-button>
             </el-col>
             <el-col :span="8" style="text-align: center;">
-              <el-button type="warning">退货</el-button>
+              <el-button type="warning" :disabled="refoundDisabled">退货</el-button>
             </el-col>
           </el-row>
         </el-card>
@@ -77,6 +77,9 @@
           bal: '',
         },
         issuInstInfo: null,
+        chargeDisabled:true,
+        saleDisabled:true,
+        refoundDisabled:true,
       };
     },
 
@@ -99,6 +102,9 @@
         memberDetailsQueryByCon(this, params, Toast).then(
           (res) => {
             this.memberInfo = res;
+            this.chargeDisabled=false;
+            this.saleDisabled=false;
+            this.refoundDisabled=false;
           },
           (res) => {
 
@@ -110,6 +116,9 @@
         this.form.memId=null;
         this.form.phone=null;
         this.memberInfo={};
+        this.chargeDisabled=true;
+        this.saleDisabled=true;
+        this.refoundDisabled=true;
       },
     }
   }
