@@ -130,6 +130,10 @@
         localStorage.removeItem("instId");
         localStorage.removeItem("instInfo");
         localStorage.removeItem("issuInstInfo");
+        localStorage.removeItem("acqInstInfo");
+        localStorage.removeItem("transId");
+        localStorage.removeItem("seq");
+        localStorage.setItem("seq", '1');
         let params={};
         let randKey=get32randString();
         console.log("randKey", randKey);//debug
@@ -148,6 +152,10 @@
             if (res.issuInstInfo!==null){
               localStorage.setItem("issuInstInfo", JSON.stringify(res.issuInstInfo));
             }
+            if (res.acqInstInfo!==null){
+              localStorage.setItem("acqInstInfo", JSON.stringify(res.acqInstInfo));
+            }
+            localStorage.setItem("transId", res.transId);
             this.$router.push('/dashboard');
             this.loading = false;
           },

@@ -6,7 +6,7 @@
     </el-button>
 
     <el-table :data="tableData" stripe border>
-      <el-table-column label="ID" prop="id"></el-table-column>
+      <el-table-column label="卡号" prop="id"></el-table-column>
       <el-table-column label="名字" prop="name"></el-table-column>
       <el-table-column label="手机号" prop="phone"></el-table-column>
       <el-table-column label="操作">
@@ -69,10 +69,14 @@
         issuInstInfo: {
           instId: null,
         },
+        acqInstInfo:{
+          instId: null,
+        },
         flag:1,//1:新增  2：修改
         dialogVisible:false,
         dialogForm:{
           issuId:null,
+          acqId:null,
           name:null,
           phone:null,
           createTellerId:null,
@@ -93,6 +97,7 @@
 
     created(){
       this.issuInstInfo = JSON.parse(localStorage.getItem("issuInstInfo"));
+      this.acqInstInfo = JSON.parse(localStorage.getItem("issuInstInfo"));
       this.initData();
     },
 
@@ -121,6 +126,7 @@
         this.flag=1;
         this.dialogForm.createTellerId=localStorage.getItem("username");
         this.dialogForm.instId=this.issuInstInfo.instId;
+        this.dialogForm.acqId=this.acqInstInfo.instId;
         this.dialogVisible=true;
       },
 
@@ -168,8 +174,11 @@
       dialogFormCommit(){
         let params={};
         params.issuId=this.dialogForm.instId;
+        params.acqId=this.dialogForm.acqId;
         params.name=this.dialogForm.name;
         params.phone=this.dialogForm.phone;
+        params.mch=this.acqInstInfo.instId;
+        params.mchName=this.acqInstInfo.instName;
         params.createTellerId=this.dialogForm.createTellerId;
         memberSave(this, params, Toast).then(
           (res)=>{

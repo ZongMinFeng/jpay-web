@@ -420,11 +420,20 @@ const memberSave = (me, params, Toast) => {
     if(params.issuId!=null){
       send.issuId=params.issuId;
     }
+    if(params.acqId!=null){
+      send.acqId=params.acqId;
+    }
     if(params.name !=null){
       send.name =params.name ;
     }
     if(params.phone!=null){
       send.phone=params.phone;
+    }
+    if(params.mch!=null){
+      send.mch=params.mch;
+    }
+    if(params.mchName!=null){
+      send.mchName=params.mchName;
     }
     if(params.createTellerId!=null){
       send.createTellerId=params.createTellerId;
@@ -561,6 +570,126 @@ const memberDetailsQueryByCon = (me, params, Toast) => {
   })
 };
 
+/**
+ * 2.26	 会员充值
+ * @param me
+ * @param params
+ * @param Toast
+ * @returns {Promise<any>}
+ */
+const memberCharge = (me, params, Toast) => {
+  console.log("memberCharge", params);//debug
+  return new Promise((resolve, reject) => {
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    urlParams.url = cfg.service.memberCharge.url + '/' + cfg.service.memberCharge.action;
+    urlParams.txnId = cfg.service.memberCharge.txnId;
+
+    if(params.issuId!=null){
+      send.issuId=params.issuId;
+    }
+    if(params.acqId!=null){
+      send.acqId=params.acqId;
+    }
+    if(params.transId !=null){
+      send.transId =params.transId ;
+    }
+    if(params.memId!=null){
+      send.memId=params.memId;
+    }
+    if(params.amt!=null){
+      send.amt=params.amt;
+    }
+    if(params.mch!=null){
+      send.mch=params.mch;
+    }
+    if(params.mchName!=null){
+      send.mchName=params.mchName;
+    }
+    if(params.pos!=null){
+      send.pos=params.pos;
+    }
+    if(params.posName!=null){
+      send.posName=params.posName;
+    }
+    if(params.createTellerId!=null){
+      send.createTellerId=params.createTellerId;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
+/**
+ * 2.27	 会员消费
+ * @param me
+ * @param params
+ * @param Toast
+ * @returns {Promise<any>}
+ */
+const memberSale = (me, params, Toast) => {
+  console.log("memberCharge", params);//debug
+  return new Promise((resolve, reject) => {
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    urlParams.url = cfg.service.memberSale.url + '/' + cfg.service.memberSale.action;
+    urlParams.txnId = cfg.service.memberSale.txnId;
+
+    if(params.issuId!=null){
+      send.issuId=params.issuId;
+    }
+    if(params.acqId!=null){
+      send.acqId=params.acqId;
+    }
+    if(params.transId !=null){
+      send.transId =params.transId ;
+    }
+    if(params.memId!=null){
+      send.memId=params.memId;
+    }
+    if(params.amt!=null){
+      send.amt=params.amt;
+    }
+    if(params.mch!=null){
+      send.mch=params.mch;
+    }
+    if(params.mchName!=null){
+      send.mchName=params.mchName;
+    }
+    if(params.pos!=null){
+      send.pos=params.pos;
+    }
+    if(params.posName!=null){
+      send.posName=params.posName;
+    }
+    if(params.createTellerId!=null){
+      send.createTellerId=params.createTellerId;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
 export {
   loginCheck,
   instPreservation,
@@ -577,4 +706,6 @@ export {
   memberSave,
   memberDelete,
   memberDetailsQueryByCon,
+  memberCharge,
+  memberSale,
 };

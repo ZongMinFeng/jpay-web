@@ -96,6 +96,18 @@ module.exports = {
       action: 'memberDetailsQueryByCon',
       txnId: 'memberDetailsQueryByCon'
     },
+
+    memberCharge: {
+      url: baseUrlSystem,
+      action: 'memberCharge',
+      txnId: 'memberCharge'
+    },
+
+    memberSale: {
+      url: baseUrlSystem,
+      action: 'memberSale',
+      txnId: 'memberSale'
+    },
   },
 
   resp: {
