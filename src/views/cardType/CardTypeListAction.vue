@@ -67,7 +67,7 @@
         tableData: [],
         instInfo: {},
         issuInstInfo: {
-          instId: null,
+          id: null,
         },
         page: 1,
         pageSize: 10,
@@ -104,7 +104,7 @@
           return;
         }
         let params = {};
-        params.issuId = this.issuInstInfo.instId;
+        params.issuId = this.issuInstInfo.id;
         params.page = this.page;
         params.pageSize = this.pageSize;
         cardTypeGetByCon(this, params, Toast).then(
@@ -120,7 +120,7 @@
 
       onAddNewTap() {
         this.flag=1;
-        this.dialogForm.issuId=this.issuInstInfo.instId;
+        this.dialogForm.issuId=this.issuInstInfo.id;
         this.dialogForm.createTellerId=localStorage.getItem("username");
         this.dialogVisible=true;
       },

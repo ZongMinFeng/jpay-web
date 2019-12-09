@@ -46,7 +46,7 @@
             <el-form-item label="ID" prop="code" :rules="[
             { required: true, message:'操作员ID不能为空', trigger: 'blur' },
             ]">
-              <el-input v-model="dialogForm.code"></el-input>
+              <el-input v-model="dialogForm.code" placeholder="英文字母或数字"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -123,7 +123,7 @@
         let params={};
         params.page=this.page;
         params.pageSize=this.pageSize;
-        params.instId=this.instInfo.instId;
+        params.instId=this.instInfo.id;
         authUserGetByCon(this, params, Toast).then(
           (res)=>{
             this.tableData=res.rows;
@@ -138,7 +138,7 @@
       getInstInfos(){
         this.data = [];
         let params = {};
-        params.instId = this.instInfo.instId;
+        params.instId = this.instInfo.id;
         instTreeGetByCons(this, params, Toast).then(
           (res) => {
             this.data.push(res);
@@ -188,7 +188,7 @@
 
       onAddNewTap(){
         this.flag=1;
-        this.dialogForm.instId=this.instInfo.instId;
+        this.dialogForm.instId=this.instInfo.id;
         this.dialogForm.createTellerId=localStorage.getItem("username");
         this.dialogVisible=true;
       },

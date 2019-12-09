@@ -218,7 +218,7 @@
       initData() {
         this.data=[];
         let params = {};
-        params.instId = this.instInfo.instId;
+        params.instId = this.instInfo.id;
         instTreeGetByCons(this, params, Toast).then(
           (res) => {
             this.data.push(res);
@@ -243,7 +243,8 @@
       onAddNewTap(data) {
         console.log("data", data);//debug
         this.flag = 1;
-        this.dialogForm.parentInstId=data.instId;
+        this.dialogForm.parentInstId=data.id;
+        this.dialogForm.instName='';
         this.dialogForm.issuTag=0;
         this.dialogForm.acqTag=0;
         this.dialogVisible = true;
@@ -251,7 +252,7 @@
 
       onModiTap(data){
         this.flag = 2;
-        this.dialogForm.instId=data.instId;
+        this.dialogForm.instId=data.id;
         this.dialogForm.parentInstId=data.parentInstId;
         this.dialogForm.instName=data.instName;
         this.dialogForm.issuTag=0;
@@ -307,7 +308,7 @@
         }).then(
           ()=>{
             let params={};
-            params.instId=data.instId;
+            params.instId=data.id;
             instDelete(this, params, Toast).then(
               (res)=>{
                 this.$message.success('删除成功 ！');

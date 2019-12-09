@@ -6,7 +6,7 @@
     </el-button>
 
     <el-table :data="tableData" stripe border>
-      <el-table-column label="卡号" prop="id"></el-table-column>
+      <el-table-column label="账号" prop="id"></el-table-column>
       <el-table-column label="名字" prop="name"></el-table-column>
       <el-table-column label="手机号" prop="phone"></el-table-column>
       <el-table-column label="操作">
@@ -67,10 +67,10 @@
         pageSize: 10,
         AllCount: 0,
         issuInstInfo: {
-          instId: null,
+          id: null,
         },
         acqInstInfo:{
-          instId: null,
+          id: null,
         },
         flag:1,//1:新增  2：修改
         dialogVisible:false,
@@ -104,13 +104,13 @@
     methods: {
       initData() {
         //必须要求有发卡机构
-        if (this.issuInstInfo==null||this.issuInstInfo.instId == null) {
+        if (this.issuInstInfo==null||this.issuInstInfo.id == null) {
           return;
         }
         let params={};
         params.page=this.page;
         params.pageSize=this.pageSize;
-        params.issuId=this.issuInstInfo.instId;
+        params.issuId=this.issuInstInfo.id;
         memberQueryByCon(this, params, Toast).then(
           (res)=>{
             this.tableData=res.rows;
@@ -125,8 +125,8 @@
       onAddNewTap() {
         this.flag=1;
         this.dialogForm.createTellerId=localStorage.getItem("username");
-        this.dialogForm.instId=this.issuInstInfo.instId;
-        this.dialogForm.acqId=this.acqInstInfo.instId;
+        this.dialogForm.instId=this.issuInstInfo.id;
+        this.dialogForm.acqId=this.acqInstInfo.id;
         this.dialogVisible=true;
       },
 
@@ -149,7 +149,7 @@
           ()=>{
             let params={};
             params.memId=id;
-            params.issuId=this.issuInstInfo.instId;
+            params.issuId=this.issuInstInfo.id;
             memberDelete(this, params, Toast).then(
               (res)=>{
                 this.page=1;
@@ -177,7 +177,7 @@
         params.acqId=this.dialogForm.acqId;
         params.name=this.dialogForm.name;
         params.phone=this.dialogForm.phone;
-        params.mch=this.acqInstInfo.instId;
+        params.mch=this.acqInstInfo.id;
         params.mchName=this.acqInstInfo.instName;
         params.createTellerId=this.dialogForm.createTellerId;
         memberSave(this, params, Toast).then(

@@ -13,7 +13,7 @@
             </el-row>
             <el-row>
               <el-col :span="24">
-                <el-form-item label="会员ID" prop="memId">
+                <el-form-item label="会员号" prop="memId">
                   <el-input v-model="form.memId"></el-input>
                 </el-form-item>
               </el-col>
@@ -151,7 +151,7 @@
         let params = {
           amt:null,
         };
-        params.issuId = this.issuInstInfo.instId;
+        params.issuId = this.issuInstInfo.id;
         params.memId = this.form.memId;
         params.phone = this.form.phone;
         params.flag = 2;
@@ -188,12 +188,12 @@
 
       chargeFormConfirm(){
         let params={};
-        params.issuId=this.issuInstInfo.instId;
-        params.acqId=this.acqInstInfo.instId;
+        params.issuId=this.issuInstInfo.id;
+        params.acqId=this.acqInstInfo.id;
         params.transId=this.nextSeq();
         params.memId=this.memberInfo.id;
         params.amt=this.chargeForm.amt;
-        params.mch=this.instInfo.instId;
+        params.mch=this.instInfo.id;
         params.mchName=this.instInfo.instName;
         params.createTellerId=this.username;
         memberCharge(this, params, Toast).then(
@@ -210,12 +210,12 @@
 
       saleFormConfirm(){
         let params={};
-        params.issuId=this.issuInstInfo.instId;
-        params.acqId=this.acqInstInfo.instId;
+        params.issuId=this.issuInstInfo.id;
+        params.acqId=this.acqInstInfo.id;
         params.transId=this.nextSeq();
         params.memId=this.memberInfo.id;
         params.amt=this.saleForm.amt;
-        params.mch=this.instInfo.instId;
+        params.mch=this.instInfo.id;
         params.mchName=this.instInfo.instName;
         params.createTellerId=this.username;
         memberSale(this, params, Toast).then(

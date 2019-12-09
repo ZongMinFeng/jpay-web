@@ -81,7 +81,7 @@
       }
       return {
         loginForm: {
-          username: 'manager5',
+          username: 'caiwu',
           password: '888888'
         },
         loginRules: {
@@ -147,7 +147,7 @@
             localStorage.setItem("randKey", randKey);
             localStorage.setItem("username", this.loginForm.username);
             localStorage.setItem("loginId", res.loginId);
-            localStorage.setItem("instId", res.instInfo.instId);
+            localStorage.setItem("instId", res.instInfo.id);
             localStorage.setItem('instInfo', JSON.stringify(res.instInfo));
             if (res.issuInstInfo!==null){
               localStorage.setItem("issuInstInfo", JSON.stringify(res.issuInstInfo));
