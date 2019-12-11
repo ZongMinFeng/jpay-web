@@ -47,7 +47,6 @@
               <el-button type="primary" :disabled="saleDisabled" @click="seleTap">消费</el-button>
             </el-col>
             <el-col :span="8" style="text-align: center;">
-              <el-button type="warning" :disabled="refoundDisabled">退货</el-button>
             </el-col>
           </el-row>
         </el-card>
@@ -55,6 +54,41 @@
       <el-col :span="8">
         <!--<el-card shadow="never">-->
         <!--</el-card>-->
+      </el-col>
+    </el-row>
+
+    <el-row v-show="vouchShowFlag" :gutter="12" style="margin-top: 50px">
+      <el-col :span="18">
+        <el-card shadow="always">
+          <div style="margin-bottom: 10px">所有订单</div>
+          <el-table :data="tableData" stripe border>
+            <el-table-column label="订单号" prop="voucher"></el-table-column>
+            <el-table-column label="类型" prop="txnName"></el-table-column>
+            <el-table-column label="金额" prop="amt"></el-table-column>
+            <el-table-column label="退货金额" prop="refundAmt"></el-table-column>
+            <el-table-column label="余额" prop="bal"></el-table-column>
+            <el-table-column label="时间" prop="createDate"></el-table-column>
+            <el-table-column label="操作">
+              <template slot-scope="props">
+                <div>
+                  <el-button size="small" v-if="props.row.txnName==='消费'&&props.row.refund_status!==2" type="warning">部分退货</el-button>
+                </div>
+                <div style="margin-top: 2px">
+                  <el-button size="small" v-if="props.row.txnName==='消费'&&props.row.refund_status!==2" type="danger">全部退货</el-button>
+                </div>
+              </template>
+            </el-table-column>
+          </el-table>
+          <div class="pagination">
+            <el-pagination @current-change="handleCurrentChange"
+                           @size-change="handleSizeChange"
+                           :page-sizes="[5, 10, 20, 30, 40]"
+                           :page-size="pageSize"
+                           layout="total,sizes, prev, pager, next"
+                           :total="AllCount">
+            </el-pagination>
+          </div>
+        </el-card>
       </el-col>
     </el-row>
 
@@ -93,7 +127,7 @@
 </template>
 
 <script>
-  import {memberDetailsQueryByCon, memberCharge, memberSale} from "@/utils/module.js";
+  import {memberDetailsQueryByCon, memberCharge, memberSale, voucherQuery} from "@/utils/module.js";
   import {Toast} from 'mint-ui';
 
   export default {
@@ -109,30 +143,46 @@
           bal: '',
         },
         issuInstInfo: null,
-        acqInstInfo:null,
-        chargeDisabled:true,
-        saleDisabled:true,
-        refoundDisabled:true,
-        chargeVisible:false,
-        chargeForm:{},
-        chargeConfirmDisabled:false,
-        chargeTitle:'充值',
-        username:null,
-        saleTitle:'消费',
-        saleForm:{
-          amt:null,
+        acqInstInfo: null,
+        chargeDisabled: true,
+        saleDisabled: true,
+        chargeVisible: false,
+        chargeForm: {},
+        chargeConfirmDisabled: false,
+        chargeTitle: '充值',
+        username: null,
+        saleTitle: '消费',
+        saleForm: {
+          amt: null,
         },
-        saleVisible:false,
-        saleConfirmDisabled:false,
-
+        saleVisible: false,
+        saleConfirmDisabled: false,
+        tableData: [],
+        //查询订单Form
+        searchForm: {
+          issuId: null,
+          acqId: null,
+          memId: null,
+          account: null,
+          flag: 1,
+          mch: null,
+          pos: null,
+        },
+        page: 1,
+        pageSize: 5,
+        AllCount: 0,
+        vouchShowFlag:false,
       };
     },
 
     created() {
       this.issuInstInfo = JSON.parse(localStorage.getItem("issuInstInfo"));
       this.acqInstInfo = JSON.parse(localStorage.getItem("acqInstInfo"));
-      this.instInfo=JSON.parse(localStorage.getItem("instInfo"));
-      this.username=localStorage.getItem("username");
+      this.instInfo = JSON.parse(localStorage.getItem("instInfo"));
+      this.username = localStorage.getItem("username");
+      this.searchForm.issuId = this.issuInstInfo.id;
+      this.searchForm.acqId = this.acqInstInfo.id;
+      this.searchForm.mch = this.instInfo.id;
       this.initData();
     },
 
@@ -141,15 +191,49 @@
 
       },
 
-      nextSeq(){
-        let seq=JSON.parse(localStorage.getItem("seq"));
-        localStorage.setItem("seq", seq+1);
-        return localStorage.getItem("transId")+seq;
+      handleSizeChange(options) {
+        this.pageSize = options;
+        this.getVoucher();
+      },
+
+      handleCurrentChange(options) {
+        this.page = options;
+        this.getVoucher();
+      },
+
+      getVoucher() {
+        let params = {
+          page: this.page,
+          pageSize: this.pageSize,
+          issuId: this.searchForm.issuId,
+          acqId: this.searchForm.acqId,
+          memId: this.searchForm.memId,
+          account: this.searchForm.account,
+          flag: this.searchForm.flag,
+          mch: this.searchForm.mch,
+          pos: this.searchForm.pos
+        };
+        voucherQuery(this, params).then(
+          (res) => {
+            console.log("订单查询res", res);//debug
+            this.tableData=res.rows;
+            this.AllCount=res.allCount;
+          },
+          (res) => {
+
+          }
+        ).catch();
+      },
+
+      nextSeq() {
+        let seq = JSON.parse(localStorage.getItem("seq"));
+        localStorage.setItem("seq", seq + 1);
+        return localStorage.getItem("transId") + seq;
       },
 
       queryTap() {
         let params = {
-          amt:null,
+          amt: null,
         };
         params.issuId = this.issuInstInfo.id;
         params.memId = this.form.memId;
@@ -158,10 +242,16 @@
         memberDetailsQueryByCon(this, params, Toast).then(
           (res) => {
             this.memberInfo = res;
-            this.chargeDisabled=false;
-            this.saleDisabled=false;
+            console.log("memberInfo", this.memberInfo);//debug
+            this.chargeDisabled = false;
+            this.saleDisabled = false;
             //暂时未开通退货功能
             // this.refoundDisabled=false;
+
+            //查询订单
+            this.searchForm.memId = this.memberInfo.id;
+            this.getVoucher();
+            this.vouchShowFlag=true;
           },
           (res) => {
 
@@ -169,62 +259,66 @@
         ).catch();
       },
 
-      reset(){
-        this.form.memId=null;
-        this.form.phone=null;
-        this.memberInfo={};
-        this.chargeDisabled=true;
-        this.saleDisabled=true;
-        this.refoundDisabled=true;
+      reset() {
+        this.form.memId = null;
+        this.form.phone = null;
+        this.memberInfo = {};
+        this.chargeDisabled = true;
+        this.saleDisabled = true;
+        this.refoundDisabled = true;
+
+        this.vouchShowFlag=false;
       },
 
-      chargeTap(){
-        this.chargeVisible=true;
+      chargeTap() {
+        this.chargeVisible = true;
       },
 
-      seleTap(){
-        this.saleVisible=true;
+      seleTap() {
+        this.saleVisible = true;
       },
 
-      chargeFormConfirm(){
-        let params={};
-        params.issuId=this.issuInstInfo.id;
-        params.acqId=this.acqInstInfo.id;
-        params.transId=this.nextSeq();
-        params.memId=this.memberInfo.id;
-        params.amt=this.chargeForm.amt;
-        params.mch=this.instInfo.id;
-        params.mchName=this.instInfo.instName;
-        params.createTellerId=this.username;
+      chargeFormConfirm() {
+        let params = {};
+        params.issuId = this.issuInstInfo.id;
+        params.acqId = this.acqInstInfo.id;
+        params.transId = this.nextSeq();
+        params.memId = this.memberInfo.id;
+        params.amt = this.chargeForm.amt;
+        params.mch = this.instInfo.id;
+        params.mchName = this.instInfo.instName;
+        params.createTellerId = this.username;
         memberCharge(this, params, Toast).then(
-          (res)=>{
+          (res) => {
             this.$message.success('充值成功');
             this.queryTap();
-            this.chargeVisible=false;
+            this.chargeVisible = false;
+            this.getVoucher();
           },
-          (res)=>{
+          (res) => {
             this.$message.error('充值失败');
           }
         ).catch();
       },
 
-      saleFormConfirm(){
-        let params={};
-        params.issuId=this.issuInstInfo.id;
-        params.acqId=this.acqInstInfo.id;
-        params.transId=this.nextSeq();
-        params.memId=this.memberInfo.id;
-        params.amt=this.saleForm.amt;
-        params.mch=this.instInfo.id;
-        params.mchName=this.instInfo.instName;
-        params.createTellerId=this.username;
+      saleFormConfirm() {
+        let params = {};
+        params.issuId = this.issuInstInfo.id;
+        params.acqId = this.acqInstInfo.id;
+        params.transId = this.nextSeq();
+        params.memId = this.memberInfo.id;
+        params.amt = this.saleForm.amt;
+        params.mch = this.instInfo.id;
+        params.mchName = this.instInfo.instName;
+        params.createTellerId = this.username;
         memberSale(this, params, Toast).then(
-          (res)=>{
+          (res) => {
             this.$message.success('消费成功');
             this.queryTap();
-            this.saleVisible=false;
+            this.saleVisible = false;
+            this.getVoucher();
           },
-          (res)=>{
+          (res) => {
             this.$message.error('消费失败');
           }
         ).catch();
@@ -243,5 +337,9 @@
       font-size: 30px;
       line-height: 46px;
     }
+  }
+  .pagination {
+    margin: 20px 0;
+    text-align: right;
   }
 </style>

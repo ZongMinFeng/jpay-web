@@ -108,6 +108,12 @@ module.exports = {
       action: 'memberSale',
       txnId: 'memberSale'
     },
+
+    voucherQuery: {
+      url: baseUrlSystem,
+      action: 'voucherQuery',
+      txnId: 'voucherQuery'
+    },
   },
 
   resp: {

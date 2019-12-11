@@ -690,6 +690,65 @@ const memberSale = (me, params, Toast) => {
   })
 };
 
+/**
+ * 2.29	 订单查询（分页查询）
+ * @param me
+ * @param params
+ * @param Toast
+ * @returns {Promise<any>}
+ */
+const voucherQuery = (me, params, Toast) => {
+  return new Promise((resolve, reject) => {
+    console.log("订单查询params", params);//debug
+    let urlParams = {};
+    let send = {};
+    let singArray = {};
+    urlParams.url = cfg.service.voucherQuery.url + '/' + cfg.service.voucherQuery.action;
+    urlParams.txnId = cfg.service.voucherQuery.txnId;
+
+    if(params.page!=null){
+      send.page=params.page;
+    }
+
+    if(params.pageSize!=null){
+      send.pageSize=params.pageSize;
+    }
+
+    if(params.issuId!=null){
+      send.issuId=params.issuId;
+    }
+    if(params.acqId!=null){
+      send.acqId=params.acqId;
+    }
+    if(params.memId!=null){
+      send.memId=params.memId;
+    }
+    if(params.account!=null){
+      send.account=params.account;
+    }
+    if(params.flag!=null){
+      send.flag=params.flag;
+    }
+    if(params.mch!=null){
+      send.mch=params.mch;
+    }
+    if(params.pos!=null){
+      send.pos=params.pos;
+    }
+
+    urlParams.send = send;
+    urlParams.noSing = true;
+    urlParams.singArray = singArray;
+
+    common.sendServer(urlParams,me,Toast).then((res) => {
+        resolve(res)
+      }, (res) => {
+        reject(res)
+      }
+    );
+  })
+};
+
 export {
   loginCheck,
   instPreservation,
@@ -708,4 +767,5 @@ export {
   memberDetailsQueryByCon,
   memberCharge,
   memberSale,
+  voucherQuery,
 };
