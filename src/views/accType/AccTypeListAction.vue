@@ -6,7 +6,7 @@
     </el-button>
 
     <el-table :data="tableData" stripe border>
-      <el-table-column label="名称" prop="name"></el-table-column>
+      <el-table-column label="名称" prop="accName"></el-table-column>
       <el-table-column label="面额" prop="faceAmt"></el-table-column>
       <el-table-column label="修改时间" prop="modiDate"></el-table-column>
       <el-table-column label="修改者" prop="modiTellerId"></el-table-column>
@@ -104,7 +104,7 @@
           return;
         }
         let params = {};
-        params.issuId = this.issuInstInfo.id;
+        params.issuId = this.issuInstInfo.instId;
         params.page = this.page;
         params.pageSize = this.pageSize;
         cardTypeGetByCon(this, params, Toast).then(
@@ -120,7 +120,7 @@
 
       onAddNewTap() {
         this.flag=1;
-        this.dialogForm.issuId=this.issuInstInfo.id;
+        this.dialogForm.issuId=this.issuInstInfo.instId;
         this.dialogForm.createTellerId=localStorage.getItem("username");
         this.dialogVisible=true;
       },

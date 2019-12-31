@@ -6,8 +6,8 @@
     </el-button>
 
     <el-table :data="tableData" stripe border>
-      <el-table-column label="账号" prop="id"></el-table-column>
-      <el-table-column label="名字" prop="name"></el-table-column>
+      <el-table-column label="账号" prop="userId"></el-table-column>
+      <el-table-column label="名字" prop="userName"></el-table-column>
       <el-table-column label="手机号" prop="phone"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="props">
@@ -104,13 +104,13 @@
     methods: {
       initData() {
         //必须要求有发卡机构
-        if (this.issuInstInfo==null||this.issuInstInfo.id == null) {
+        if (this.issuInstInfo==null||this.issuInstInfo.instId == null) {
           return;
         }
         let params={};
         params.page=this.page;
         params.pageSize=this.pageSize;
-        params.issuId=this.issuInstInfo.id;
+        params.issuId=this.issuInstInfo.instId;
         memberQueryByCon(this, params, Toast).then(
           (res)=>{
             this.tableData=res.rows;
@@ -125,8 +125,8 @@
       onAddNewTap() {
         this.flag=1;
         this.dialogForm.createTellerId=localStorage.getItem("username");
-        this.dialogForm.instId=this.issuInstInfo.id;
-        this.dialogForm.acqId=this.acqInstInfo.id;
+        this.dialogForm.instId=this.issuInstInfo.instId;
+        this.dialogForm.acqId=this.acqInstInfo.instId;
         this.dialogVisible=true;
       },
 
@@ -177,7 +177,7 @@
         params.acqId=this.dialogForm.acqId;
         params.name=this.dialogForm.name;
         params.phone=this.dialogForm.phone;
-        params.mch=this.acqInstInfo.id;
+        params.mch=this.acqInstInfo.instId;
         params.mchName=this.acqInstInfo.instName;
         params.createTellerId=this.dialogForm.createTellerId;
         memberSave(this, params, Toast).then(

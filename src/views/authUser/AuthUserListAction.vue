@@ -123,7 +123,7 @@
         let params={};
         params.page=this.page;
         params.pageSize=this.pageSize;
-        params.instId=this.instInfo.id;
+        params.instId=this.instInfo.instId;
         authUserGetByCon(this, params, Toast).then(
           (res)=>{
             this.tableData=res.rows;
@@ -138,7 +138,7 @@
       getInstInfos(){
         this.data = [];
         let params = {};
-        params.instId = this.instInfo.id;
+        params.instId = this.instInfo.instId;
         instTreeGetByCons(this, params, Toast).then(
           (res) => {
             this.data.push(res);
@@ -188,7 +188,7 @@
 
       onAddNewTap(){
         this.flag=1;
-        this.dialogForm.instId=this.instInfo.id;
+        this.dialogForm.instId=this.instInfo.instId;
         this.dialogForm.createTellerId=localStorage.getItem("username");
         this.dialogVisible=true;
       },

@@ -87,7 +87,6 @@
       //数据模型
       const data = [
         {
-          "id": 118159676713078784,
           "instId": 118159676713078784,
           "instName": "管理机构",
           "parentInstId": 0,
@@ -218,7 +217,7 @@
       initData() {
         this.data=[];
         let params = {};
-        params.instId = this.instInfo.id;
+        params.instId = this.instInfo.instId;
         instTreeGetByCons(this, params, Toast).then(
           (res) => {
             this.data.push(res);
@@ -252,7 +251,7 @@
 
       onModiTap(data){
         this.flag = 2;
-        this.dialogForm.instId=data.id;
+        this.dialogForm.instId=data.isntId;
         this.dialogForm.parentInstId=data.parentInstId;
         this.dialogForm.instName=data.instName;
         this.dialogForm.issuTag=0;
@@ -308,7 +307,7 @@
         }).then(
           ()=>{
             let params={};
-            params.instId=data.id;
+            params.instId=data.instId;
             instDelete(this, params, Toast).then(
               (res)=>{
                 this.$message.success('删除成功 ！');

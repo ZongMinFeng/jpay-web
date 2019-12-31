@@ -180,9 +180,9 @@
       this.acqInstInfo = JSON.parse(localStorage.getItem("acqInstInfo"));
       this.instInfo = JSON.parse(localStorage.getItem("instInfo"));
       this.username = localStorage.getItem("username");
-      this.searchForm.issuId = this.issuInstInfo.id;
-      this.searchForm.acqId = this.acqInstInfo.id;
-      this.searchForm.mch = this.instInfo.id;
+      this.searchForm.issuId = this.issuInstInfo.isntId;
+      this.searchForm.acqId = this.acqInstInfo.instId;
+      this.searchForm.mch = this.instInfo.instId;
       this.initData();
     },
 
@@ -235,7 +235,7 @@
         let params = {
           amt: null,
         };
-        params.issuId = this.issuInstInfo.id;
+        params.issuId = this.issuInstInfo.instId;
         params.memId = this.form.memId;
         params.phone = this.form.phone;
         params.flag = 2;
@@ -245,11 +245,10 @@
             console.log("memberInfo", this.memberInfo);//debug
             this.chargeDisabled = false;
             this.saleDisabled = false;
-            //暂时未开通退货功能
-            // this.refoundDisabled=false;
 
             //查询订单
-            this.searchForm.memId = this.memberInfo.id;
+            this.searchForm.issuId=this.memberInfo.issuId;
+            this.searchForm.memId = this.memberInfo.memId;
             this.getVoucher();
             this.vouchShowFlag=true;
           },
@@ -280,12 +279,12 @@
 
       chargeFormConfirm() {
         let params = {};
-        params.issuId = this.issuInstInfo.id;
-        params.acqId = this.acqInstInfo.id;
+        params.issuId = this.issuInstInfo.instId;
+        params.acqId = this.acqInstInfo.instId;
         params.transId = this.nextSeq();
-        params.memId = this.memberInfo.id;
+        params.memId = this.memberInfo.memId;
         params.amt = this.chargeForm.amt;
-        params.mch = this.instInfo.id;
+        params.mch = this.instInfo.instId;
         params.mchName = this.instInfo.instName;
         params.createTellerId = this.username;
         memberCharge(this, params, Toast).then(
@@ -303,12 +302,12 @@
 
       saleFormConfirm() {
         let params = {};
-        params.issuId = this.issuInstInfo.id;
-        params.acqId = this.acqInstInfo.id;
+        params.issuId = this.issuInstInfo.instId;
+        params.acqId = this.acqInstInfo.instId;
         params.transId = this.nextSeq();
-        params.memId = this.memberInfo.id;
+        params.memId = this.memberInfo.memId;
         params.amt = this.saleForm.amt;
-        params.mch = this.instInfo.id;
+        params.mch = this.instInfo.instId;
         params.mchName = this.instInfo.instName;
         params.createTellerId = this.username;
         memberSale(this, params, Toast).then(
