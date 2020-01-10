@@ -53,7 +53,7 @@ module.exports = {
     proxy: {
       '/': {
         ws: false,             //相关代理端不支持 ws
-        target: 'http://127.0.0.1:18081',//本地
+        target: 'http://192.168.0.153:18081',//本地
         secure: false,
         changeOrigin: true
       },
