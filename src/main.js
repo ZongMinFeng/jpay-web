@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'production') {
 Vue.use(ElementUI);
 
 //设置axios超时时间10秒
-axios.defaults.timeout = 10000
+axios.defaults.timeout = 10000;
 //原型上挂在axios,便于全局使用
 Vue.prototype.$axios = axios;
 Vue.use(Mint);
