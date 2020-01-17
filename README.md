@@ -1,91 +1,106 @@
-# vue-admin-template
+Ant Design Jeecg Vue
+====
 
-English | [简体中文](./README-zh.md)
+当前最新版本： 2.1.2（发布日期：20191122）
 
-> A minimal vue admin template with Element UI & axios & iconfont & permission control & lint
+Overview
+----
 
-**Live demo:** http://panjiachen.github.io/vue-admin-template
-
-
-**The current version is `v4.0+` build on `vue-cli`. If you want to use the old version , you can switch branch to [tag/3.11.0](https://github.com/PanJiaChen/vue-admin-template/tree/tag/3.11.0), it does not rely on `vue-cli`**
-
-## Build Setup
+基于 [Ant Design of Vue](https://vuecomponent.github.io/ant-design-vue/docs/vue/introduce-cn/) 实现的 Ant Design Pro  Vue 版
+Jeecg-boot 的前段UI框架，采用前后端分离方案，提供强大代码生成器的快速开发平台。
+前端页面代码和后端功能代码一键生成，不需要写任何代码，保持jeecg一贯的强大！！
 
 
+
+#### 前端技术
+ 
+- 基础框架：[ant-design-vue](https://github.com/vueComponent/ant-design-vue) - Ant Design Of Vue 实现
+- JavaScript框架：Vue
+- Webpack
+- node
+- yarn
+- eslint
+- @vue/cli 3.2.1
+- [vue-cropper](https://github.com/xyxiao001/vue-cropper) - 头像裁剪组件
+- [@antv/g2](https://antv.alipay.com/zh-cn/index.html) - Alipay AntV 数据可视化图表
+- [Viser-vue](https://viserjs.github.io/docs.html#/viser/guide/installation)  - antv/g2 封装实现
+
+
+
+项目下载和运行
+----
+
+- 拉取项目代码
 ```bash
-# clone the project
-git clone https://github.com/PanJiaChen/vue-admin-template.git
-
-# enter the project directory
-cd vue-admin-template
-
-# install dependency
-npm install
-
-# develop
-npm run dev
+git clone https://github.com/zhangdaiscott/jeecg-boot.git
+cd  jeecg-boot/ant-design-jeecg-vue
 ```
 
-This will automatically open http://localhost:9528
-
-## Build
-
-```bash
-# build for test environment
-npm run build:stage
-
-# build for production environment
-npm run build:prod
+- 安装依赖
+```
+yarn install
 ```
 
-## Advanced
-
-```bash
-# preview the release environment effect
-npm run preview
-
-# preview the release environment effect + static resource analysis
-npm run preview -- --report
-
-# code format check
-npm run lint
-
-# code format check and auto fix
-npm run lint -- --fix
+- 开发模式运行
+```
+yarn run serve
 ```
 
-Refer to [Documentation](https://panjiachen.github.io/vue-element-admin-site/guide/essentials/deploy.html) for more information
+- 编译项目
+```
+yarn run build
+```
 
-## Demo
+- Lints and fixes files
+```
+yarn run lint
+```
 
-![demo](https://github.com/PanJiaChen/PanJiaChen.github.io/blob/master/images/demo.gif)
 
-## Extra
 
-If you want router permission && generate menu by user roles , you can use this branch [permission-control](https://github.com/PanJiaChen/vue-admin-template/tree/permission-control)
+其他说明
+----
 
-For `typescript` version, you can use [vue-typescript-admin-template](https://github.com/Armour/vue-typescript-admin-template) (Credits: [@Armour](https://github.com/Armour))
+- 项目使用的 [vue-cli3](https://cli.vuejs.org/guide/), 请更新您的 cli
 
-## Related Project
+- 关闭 Eslint (不推荐) 移除 `package.json` 中 `eslintConfig` 整个节点代码
 
-- [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
+- 修改 Ant Design 配色，在文件 `vue.config.js` 中，其他 less 变量覆盖参考 [ant design](https://ant.design/docs/react/customize-theme-cn) 官方说明
+```ecmascript 6
+  css: {
+    loaderOptions: {
+      less: {
+        modifyVars: {
+          /* less 变量覆盖，用于自定义 ant design 主题 */
 
-- [electron-vue-admin](https://github.com/PanJiaChen/electron-vue-admin)
+          'primary-color': '#F5222D',
+          'link-color': '#F5222D',
+          'border-radius-base': '4px',
+        },
+        javascriptEnabled: true,
+      }
+    }
+  }
+```
 
-- [vue-typescript-admin-template](https://github.com/Armour/vue-typescript-admin-template)
 
-- [awesome-project](https://github.com/PanJiaChen/vue-element-admin/issues/2312)
 
-## Browsers support
+附属文档
+----
+- [Ant Design Vue](https://vuecomponent.github.io/ant-design-vue/docs/vue/introduce-cn)
 
-Modern browsers and Internet Explorer 10+.
+- [报表 viser-vue](https://viserjs.github.io/demo.html#/viser/bar/basic-bar)
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| --------- | --------- | --------- | --------- |
-| IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions
+- [Vue](https://cn.vuejs.org/v2/guide)
 
-## License
+- [路由/菜单说明](https://github.com/zhangdaiscott/jeecg-boot/tree/master/ant-design-jeecg-vue/src/router/README.md)
 
-[MIT](https://github.com/PanJiaChen/vue-admin-template/blob/master/LICENSE) license.
+- [ANTD 默认配置项](https://github.com/zhangdaiscott/jeecg-boot/tree/master/ant-design-jeecg-vue/src/defaultSettings.js)
 
-Copyright (c) 2017-present PanJiaChen
+- 其他待补充...
+
+
+备注
+----
+
+> @vue/cli 升级后，eslint 规则更新了。由于影响到全部 .vue 文件，需要逐个验证。既暂时关闭部分原本不验证的规则，后期维护时，在逐步修正这些 rules

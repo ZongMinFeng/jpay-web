@@ -1,53 +1,75 @@
 import Vue from 'vue'
-import axios from 'axios'
-import Mint from 'mint-ui'
-import 'mint-ui/lib/style.css'
-
-import 'normalize.css/normalize.css' // A modern alternative to CSS resets
-
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import locale from 'element-ui/lib/locale/lang/en' // lang i18n
-
-import '@/styles/index.scss' // global css
-
-import App from './App'
-import store from './store'
+import App from './App.vue'
+import Storage from 'vue-ls'
 import router from './router'
+import store from './store/'
 
-import '@/icons' // icon
-//暂时不用permission
-// import '@/permission' // permission control
+import { VueAxios } from "@/utils/request"
 
-/**
- * If you don't want to use mock-server
- * you want to use MockJs for mock api
- * you can execute: mockXHR()
- *
- * Currently MockJs will be used in the production environment,
- * please remove it before going online! ! !
- */
-import { mockXHR } from '../mock'
-if (process.env.NODE_ENV === 'production') {
-  mockXHR()
-}
+import Antd from 'ant-design-vue'
+import Viser from 'viser-vue'
+import 'ant-design-vue/dist/antd.less';  // or 'ant-design-vue/dist/antd.less'
 
-// set ElementUI lang to EN
-// Vue.use(ElementUI, { locale })
-// 如果想要中文版 element-ui，按如下方式声明
-Vue.use(ElementUI);
+import '@/permission' // permission control
+import '@/utils/filter' // base filter
+import Print from 'vue-print-nb-jeecg'
+/*import '@babel/polyfill'*/
+import VueApexCharts from 'vue-apexcharts'
 
-//设置axios超时时间10秒
-axios.defaults.timeout = 10000;
-//原型上挂在axios,便于全局使用
-Vue.prototype.$axios = axios;
-Vue.use(Mint);
+import preview from 'vue-photo-preview'
+import 'vue-photo-preview/dist/skin.css'
+import "@jeecg/antd-online"
+import '@jeecg/antd-online/dist/OnlineForm.css'
+
+import {
+  ACCESS_TOKEN,
+  DEFAULT_COLOR,
+  DEFAULT_THEME,
+  DEFAULT_LAYOUT_MODE,
+  DEFAULT_COLOR_WEAK,
+  SIDEBAR_TYPE,
+  DEFAULT_FIXED_HEADER,
+  DEFAULT_FIXED_HEADER_HIDDEN,
+  DEFAULT_FIXED_SIDEMENU,
+  DEFAULT_CONTENT_WIDTH_TYPE,
+  DEFAULT_MULTI_PAGE
+} from "@/store/mutation-types"
+import config from '@/defaultSettings'
+
+import JDictSelectTag from './components/dict/index.js'
+import hasPermission from '@/utils/hasPermission'
+import vueBus from '@/utils/vueBus';
+import JeecgComponents from '@/components/jeecg/index'
 
 Vue.config.productionTip = false
+Vue.use(Storage, config.storageOptions)
+Vue.use(Antd)
+Vue.use(VueAxios, router)
+Vue.use(Viser)
+Vue.use(hasPermission)
+Vue.use(JDictSelectTag)
+Vue.use(Print)
+Vue.use(VueApexCharts)
+Vue.component('apexchart', VueApexCharts)
+Vue.use(preview)
+Vue.use(vueBus);
+Vue.use(JeecgComponents);
 
 new Vue({
-  el: '#app',
   router,
   store,
+  mounted () {
+    store.commit('SET_SIDEBAR_TYPE', Vue.ls.get(SIDEBAR_TYPE, true))
+    store.commit('TOGGLE_THEME', Vue.ls.get(DEFAULT_THEME, config.navTheme))
+    store.commit('TOGGLE_LAYOUT_MODE', Vue.ls.get(DEFAULT_LAYOUT_MODE, config.layout))
+    store.commit('TOGGLE_FIXED_HEADER', Vue.ls.get(DEFAULT_FIXED_HEADER, config.fixedHeader))
+    store.commit('TOGGLE_FIXED_SIDERBAR', Vue.ls.get(DEFAULT_FIXED_SIDEMENU, config.fixSiderbar))
+    store.commit('TOGGLE_CONTENT_WIDTH', Vue.ls.get(DEFAULT_CONTENT_WIDTH_TYPE, config.contentWidth))
+    store.commit('TOGGLE_FIXED_HEADER_HIDDEN', Vue.ls.get(DEFAULT_FIXED_HEADER_HIDDEN, config.autoHideHeader))
+    store.commit('TOGGLE_WEAK', Vue.ls.get(DEFAULT_COLOR_WEAK, config.colorWeak))
+    store.commit('TOGGLE_COLOR', Vue.ls.get(DEFAULT_COLOR, config.primaryColor))
+    store.commit('SET_TOKEN', Vue.ls.get(ACCESS_TOKEN))
+    store.commit('SET_MULTI_PAGE',Vue.ls.get(DEFAULT_MULTI_PAGE,true))
+  },
   render: h => h(App)
-})
+}).$mount('#app')
